@@ -10,12 +10,25 @@ let personalMovieDB = {
     privat: false
 };
 
-let lastFilm = prompt("Один из последних просмотренных фильмов?", ""),
-    rating = +prompt("На сколько оцените его?", ""),
-    lastFilm1 = prompt("Один из последних просмотренных фильмов?", ""),
-    rating1 = +prompt("На сколько оцените его?", "");
+if(personalMovieDB.count <= 10 && personalMovieDB.count > 0) {
+    alert("Просмотренно мало фильмов");
+}
+else if(personalMovieDB.count > 10 && personalMovieDB.count <= 30) {
+    alert("Вы классический зритель");
+} else {
+    alert("Вы киноман!");
+}
 
-personalMovieDB.movies[lastFilm] = rating;
-personalMovieDB.movies[lastFilm1] = rating1; 
 
-console.log(personalMovieDB.movies);
+
+let num = 1;
+while(num <=2) {
+    let lastFilm = prompt("Один из последних просмотренных фильмов?", "");
+    if(lastFilm != '' && lastFilm.length < 50) {
+        let rating = prompt("На сколько оцените его?", "");
+        personalMovieDB.movies[lastFilm] = rating;
+        num++;
+    }
+}
+
+console.log(personalMovieDB);
