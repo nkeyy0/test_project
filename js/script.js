@@ -1,25 +1,17 @@
 "use strict";
 
-
-let numberOfFilms;
-
-function start() {
-    numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "0");
-
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-
-        numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "0");
-    }
-}
-
-start();
-
 let personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     movies: {},
     actors: {},
     genres: [],
-    privat: false,
+    privat: true,
+    start: function(){
+        personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "0");
+            while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
+        personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "0");
+    }
+    },
     detectPersonalLevel: function(){
         if(personalMovieDB.count <= 10 && personalMovieDB.count > 0) {
             alert("Просмотренно мало фильмов");
@@ -51,31 +43,42 @@ let personalMovieDB = {
             console.log("Error");
         } 
     },
-    /*
-3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
-Если он это сделал - возвращать его к этому же вопросу. После того, как все жанры введены - 
-при помощи метода forEach вывести в консоль сообщения в таком виде:
-"Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
     writeYourGenres: function() {
-        for(let i = 0; i < 3; i++) {
+        /*for(let i = 0; i < 3; i++) {
             personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i+1}`);
             while(personalMovieDB.genres[i] == null || personalMovieDB.genres[i] == ''){
+                alert("Вы ввели некорректные данные");
                 personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i+1}`);
             }
         }
         personalMovieDB.genres.forEach(function(item, i) {
-            console.log(`Любимый жанр №{$i} это ${item}`);
+            console.log(`Любимый жанр №${i+1} это ${item}`);
+        });*/
+        for(let i = 0; i < 1; i++){
+        let genre = prompt('Введите ваши любимые жанры через запятую:');
+            if(genre == null || genre == ''){
+                i--;
+                alert('Вы ввели неверные данные');
+            }
+            else{
+            personalMovieDB.genres = genre.split(', ');
+            }
+        }
+        personalMovieDB.genres.forEach((item, i) => {
+            console.log(`Любимый жанр №${i+1} это ${item}`);
         });
     },
     toggleVisibleMyDB: function() {
-        if(personalMovieDB.privat == false){
-            personalMovieDB.privat = true;
+        if(personalMovieDB.privat){
+            personalMovieDB.privat = false;
         }
         else {
-            personalMovieDB.privat = false;
+            personalMovieDB.privat = true;
         }
     }
 };
+
+personalMovieDB.start();
 
 personalMovieDB.detectPersonalLevel();
 
